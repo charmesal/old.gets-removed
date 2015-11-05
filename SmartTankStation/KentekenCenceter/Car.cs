@@ -9,6 +9,7 @@ namespace CarCenter
 
     public class Car
     {
+        private string test = "dit is een test";
         public string Licenseplate { get; private set; }
 
         private string nogeentest = "";
