@@ -9,10 +9,7 @@ namespace CarCenter
 
     public class Car
     {
-        private string test = "dit is een test";
         public string Licenseplate { get; private set; }
-
-        private string nogeentest = "";
         public TypeOfFuel Fueltype { get; private set; }
         public string Brand { get; private set; }
         public double FuelCapacity { get; private set; }
