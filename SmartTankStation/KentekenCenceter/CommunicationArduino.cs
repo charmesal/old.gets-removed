@@ -28,7 +28,7 @@ namespace CarCenter
 
             mySerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
 
-            //mySerialPort.Open(); for testing 
+            mySerialPort.Open();
         }
 
         public void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
@@ -40,25 +40,33 @@ namespace CarCenter
                indata = indata.Substring(0, 8);
               SendMessage(string.Format("%{0}#",fuelstation.GetFuelType(indata).ToString()));
            }
-           if (indata.StartsWith("ready"))
+           if (indata.StartsWith("%ready#"))
            {
-               fuelstation.sendSerialMsg(1, "start");
-               fuelstation.sendSerialMsg(2, "start");
+               fuelstation.sendSerialMsg(1, "%start#");
+               fuelstation.sendSerialMsg(2, "%start#");
            }
 
 
-                        //pay:AA-00-AA,amountOfFuel:500
-            if (indata.StartsWith("pay"))
+                        //%pay:AA-00-AA,amountOfFuel:500#
+            if (indata.StartsWith("%pay"))
 
             {
                 string[] data = indata.Split(',');
                 string[] kentekenData = data[0].Split(':');
                 string kentenen = kentekenData[1];
                 string[] amountOfFuel = data[1].Split(':');
-                //string fuel = amountOfFuel[1];
+                string fuelding = amountOfFuel[1];
+                fuelding = fuelding.Remove(fuelding.Length - 2);
+                Console.WriteLine(fuelding);
                 decimal fuel = 0m;
-                decimal.TryParse(amountOfFuel[1], out fuel);
+                decimal.TryParse(fuelding, out fuel);
+                string mesage = "%Paid:" + kentenen + "#";
+                Console.WriteLine(mesage);
                 fuelstation.Pay(kentenen, fuel);
+                fuelstation.sendSerialMsg(1, mesage);
+                fuelstation.sendSerialMsg(2, mesage);
+
+
             }
         }
 

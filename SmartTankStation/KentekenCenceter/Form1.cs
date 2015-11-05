@@ -27,8 +27,8 @@ namespace CarCenter
             fuelstation = new Fuelstation();
             pcconnection = new CommunicationPCs(fuelstation);
             fuelstation.setPC(pcconnection);
-            arduino1 = new CommunicationArduino(fuelstation, "COM9");
-            arduino2 = new CommunicationArduino(fuelstation, "COM7");
+            arduino1 = new CommunicationArduino(fuelstation, "COM12");
+            arduino2 = new CommunicationArduino(fuelstation, "COM13");
             fuelstation.setArduinos(arduino1, arduino2);
             cbSendTo.SelectedIndex = 0;
             cbRetrieveFrom.SelectedIndex = 1;
