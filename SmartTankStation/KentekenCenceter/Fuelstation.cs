@@ -12,7 +12,7 @@ namespace CarCenter
     {
         public List<Bankaccount> Bankaccounts { get; private set; }
         public List<Owner> Owners { get; private set; }
-        public List<Car> Cars { get; private set; }
+        public List<Car> AllCars { get; private set; }
 
         private CommunicationPCs pc;
 
@@ -23,7 +23,7 @@ namespace CarCenter
         {
             Owners = new List<Owner>();
             Bankaccounts = new List<Bankaccount>();
-            Cars = new List<Car>();
+            AllCars = new List<Car>();
 
 
             UpdateFromTextDatabase();
@@ -54,7 +54,7 @@ namespace CarCenter
 
         public TypeOfFuel GetFuelType(string licenseplate)
         {
-            foreach (Car caritem in Cars)
+            foreach (Car caritem in AllCars)
             {
                 if (caritem.Licenseplate == licenseplate)
                 {
@@ -63,7 +63,7 @@ namespace CarCenter
             }
 
             Car car = pc.AskNewCarFuelType(licenseplate);
-            Cars.Add(car);
+            AllCars.Add(car);
             return car.Fueltype;
         }
 
@@ -71,7 +71,7 @@ namespace CarCenter
         {
             foreach (Owner owner in Owners)
             {
-                foreach (Car car in owner.Cars)
+                foreach (Car car in owner.OwnedCars)
                 {
                     if (car.Licenseplate == licensePlate)
                     {
@@ -81,14 +81,11 @@ namespace CarCenter
             }
             return null;
         }
-        public bool checkPin(string pinCode, string bankAccountNumber)
+        public bool checkPin(string pinCode, Owner owner)
         {
-            foreach (Bankaccount bankAccount in Bankaccounts)
+            if (owner.Bankaccount.Pincode == pinCode)
             {
-                if (bankAccount.AccountNumber == bankAccountNumber && bankAccount.Pincode == pinCode)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
@@ -124,7 +121,7 @@ namespace CarCenter
             {
 
                 string pinCode = getPinCodeFromUser(owner, PayAmount);
-                if (checkPin(pinCode, AccountNumber))
+                if (checkPin(pinCode, owner))
                 {
                     if (owner.Bankaccount.Pay(PayAmount))
                     {
@@ -180,7 +177,17 @@ namespace CarCenter
                 string line = item;
                 string[] data = line.Split(',');
                 Bankaccount bankaccount = new Bankaccount(data[0], data[1], Convert.ToDecimal(data[2]));
-                Bankaccounts.Add(bankaccount);
+                //Bankaccounts.Add(bankaccount);
+                foreach(Owner owner in Owners)
+                {
+                    if(owner.Name == data[5])
+                    {
+                        if(!owner.ChangeBankAccount(bankaccount))
+                        {
+                            MessageBox.Show("Could not add/change bankaccount");
+                        }
+                    }
+                }
             }
 
             list.Clear();
@@ -208,7 +215,7 @@ namespace CarCenter
             }
 
             list.Clear();
-            using (StreamReader reader = new StreamReader("carsdatabase.txt"))
+            using (StreamReader reader = new StreamReader("AllCarsdatabase.txt"))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
@@ -239,8 +246,8 @@ namespace CarCenter
                     if (owner.Name == data[4])
                     {
                         Car car = new Car(data[0], fueltype, data[2], Convert.ToDouble(data[3]), owner);
-                        Cars.Add(car);
-                        owner.Cars.Add(car);
+                        AllCars.Add(car);
+                        owner.OwnedCars.Add(car);
                         break;
                     }
                 }
