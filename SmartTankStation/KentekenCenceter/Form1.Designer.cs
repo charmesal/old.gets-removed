@@ -30,10 +30,6 @@
         {
             this.Lbl = new System.Windows.Forms.Label();
             this.ServerLbl = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbSendTo = new System.Windows.Forms.ComboBox();
-            this.cbRetrieveFrom = new System.Windows.Forms.ComboBox();
             this.listBoxCars = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -70,62 +66,6 @@
             this.ServerLbl.Name = "ServerLbl";
             this.ServerLbl.Size = new System.Drawing.Size(444, 23);
             this.ServerLbl.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(435, 54);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Retrieve From";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(112, 54);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Send To";
-            // 
-            // cbSendTo
-            // 
-            this.cbSendTo.FormattingEnabled = true;
-            this.cbSendTo.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-            this.cbSendTo.Location = new System.Drawing.Point(115, 70);
-            this.cbSendTo.Name = "cbSendTo";
-            this.cbSendTo.Size = new System.Drawing.Size(45, 21);
-            this.cbSendTo.TabIndex = 10;
-            this.cbSendTo.SelectedIndexChanged += new System.EventHandler(this.cbSendTo_SelectedIndexChanged);
-            // 
-            // cbRetrieveFrom
-            // 
-            this.cbRetrieveFrom.FormattingEnabled = true;
-            this.cbRetrieveFrom.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-            this.cbRetrieveFrom.Location = new System.Drawing.Point(438, 70);
-            this.cbRetrieveFrom.Name = "cbRetrieveFrom";
-            this.cbRetrieveFrom.Size = new System.Drawing.Size(70, 21);
-            this.cbRetrieveFrom.TabIndex = 9;
-            this.cbRetrieveFrom.SelectedIndexChanged += new System.EventHandler(this.cbRetrieveFrom_SelectedIndexChanged);
             // 
             // listBoxCars
             // 
@@ -352,10 +292,6 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listBoxCars);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbSendTo);
-            this.Controls.Add(this.cbRetrieveFrom);
             this.Controls.Add(this.Lbl);
             this.Controls.Add(this.ServerLbl);
             this.Name = "Form1";
@@ -370,10 +306,6 @@
 
         private System.Windows.Forms.Label Lbl;
         private System.Windows.Forms.Label ServerLbl;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbSendTo;
-        private System.Windows.Forms.ComboBox cbRetrieveFrom;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         public System.Windows.Forms.ListBox listBoxCars;

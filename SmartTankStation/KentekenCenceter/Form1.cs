@@ -30,8 +30,6 @@ namespace CarCenter
             arduino1 = new CommunicationArduino(fuelstation, "COM12");
             arduino2 = new CommunicationArduino(fuelstation, "COM13");
             fuelstation.setArduinos(arduino1, arduino2);
-            cbSendTo.SelectedIndex = 0;
-            cbRetrieveFrom.SelectedIndex = 1;
 
             foreach (Car caritem in fuelstation.AllCars)
             {
@@ -43,16 +41,6 @@ namespace CarCenter
         {
             arduino1.CloseConnection();
             arduino2.CloseConnection();
-        }
-
-        private void cbSendTo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            pcconnection.SendTo = cbSendTo.SelectedIndex + 1;
-        }
-
-        private void cbRetrieveFrom_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            pcconnection.RetrieveFrom = cbRetrieveFrom.SelectedIndex + 1;
         }
 
         private void button1_Click(object sender, EventArgs e)
