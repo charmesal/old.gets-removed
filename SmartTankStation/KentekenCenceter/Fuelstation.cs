@@ -15,9 +15,10 @@ namespace CarCenter
         public List<Car> AllCars { get; private set; }
 
         private CommunicationPCs pc;
-
         private CommunicationArduino ard1;
         private CommunicationArduino ard2;
+        private int newAccountNumber = 0;
+        private int newAuthenticationNumber = 10000000;
 
         public Fuelstation()
         {
@@ -116,7 +117,7 @@ namespace CarCenter
         {
             decimal PayAmount = CalculatePrice(licencePlate, amountOfFuel);
             Owner owner = getOwner(licencePlate);
-            string AccountNumber = getOwner(licencePlate).Bankaccount.AccountNumber;
+            string AccountNumber = owner.Bankaccount.AccountNumber;
             if (owner != null)
             {
 
@@ -154,80 +155,85 @@ namespace CarCenter
             {
                 pinCode = dlg.PinCode;
                 dlg.Dispose();
-
             }
             return pinCode;
         }
 
+        public void getTextFromFile(List<string> list, string fileLocation)
+        {
+            using (StreamReader reader = new StreamReader(fileLocation))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    list.Add(line);
+                }
+            }
+        }
+
+        public Bankaccount getBankaccount(List<string> listBankAccounts, string ownerAccountNumber)
+        {
+            foreach (string bankAccountString in listBankAccounts)
+            {
+                string[] dataBankAccount = bankAccountString.Split(',');
+                if (dataBankAccount[0] == ownerAccountNumber)
+                {
+                    decimal balance;
+                    if (decimal.TryParse(dataBankAccount[2], out balance))
+                    {
+                        return new Bankaccount(dataBankAccount[0], dataBankAccount[1], balance);
+                    }
+                    else
+                    {
+                        decimal newBalance = 0;
+                        return new Bankaccount(dataBankAccount[0], dataBankAccount[1], newBalance);
+                    }
+                }
+            }
+            return null;
+        }
+
         private void UpdateFromTextDatabase()
         {
-            List<string> list = new List<string>();
+            List<string> listCars = new List<string>();
+            List<string> listBankAccounts = new List<string>();
+            List<string> listOwners = new List<string>();
 
-            using (StreamReader reader = new StreamReader("bankaccountdatabase.txt"))
+            getTextFromFile(listCars, "carsdatabase.txt");
+            getTextFromFile(listBankAccounts, "bankaccountdatabase.txt");
+            getTextFromFile(listOwners, "ownerdatabase.txt");
+
+            foreach(string ownerString in listOwners)
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                string[] dataOwner = ownerString.Split(',');
+                Bankaccount ownerBankAccount = getBankaccount(listBankAccounts, dataOwner[1]);
+
+                if (ownerBankAccount != null)
                 {
-                    list.Add(line);
+                    Owners.Add(new Owner(dataOwner[0], ownerBankAccount, dataOwner[2]));
                 }
-            }
-
-            foreach (string item in list)
-            {
-                string line = item;
-                string[] data = line.Split(',');
-                Bankaccount bankaccount = new Bankaccount(data[0], data[1], Convert.ToDecimal(data[2]));
-                //Bankaccounts.Add(bankaccount);
-                foreach(Owner owner in Owners)
+                else
                 {
-                    if(owner.Name == data[5])
+                    newAccountNumber++;
+                    newAuthenticationNumber++;
+                    if (newAccountNumber > 9999)
                     {
-                        if(!owner.ChangeBankAccount(bankaccount))
-                        {
-                            MessageBox.Show("Could not add/change bankaccount");
-                        }
+                        newAuthenticationNumber = 1;
                     }
-                }
-            }
-
-            list.Clear();
-            using (StreamReader reader = new StreamReader("ownerdatabase.txt"))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    list.Add(line);
-                }
-            }
-
-            foreach (string item in list)
-            {
-                string line = item;
-                string[] data = line.Split(',');
-                foreach (Bankaccount account in Bankaccounts)
-                {
-                    if (account.AccountNumber == data[1])
+                    string newAccountNumberString = newAccountNumber.ToString();
+                    string newAuthenticationNumberString = newAuthenticationNumber.ToString();
+                    while (newAuthenticationNumberString.Length < 3)
                     {
-                        Owner owner = new Owner(data[0], account, Convert.ToInt32(data[2]));
-                        Owners.Add(owner);
+                        newAuthenticationNumberString = "0" + newAuthenticationNumberString;
                     }
+                    Bankaccount bankaccount = new Bankaccount(newAccountNumberString, newAuthenticationNumberString, 0);
+                    Owners.Add(new Owner(dataOwner[0], bankaccount, dataOwner[2]));
                 }
             }
 
-            list.Clear();
-            using (StreamReader reader = new StreamReader("AllCarsdatabase.txt"))
+            foreach (string carString in listCars)
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    list.Add(line);
-                }
-            }
-
-            foreach (string item in list)
-            {
-                string line = item;
-                string[] data = line.Split(',');
+                string[] data = carString.Split(',');
                 TypeOfFuel fueltype = TypeOfFuel.Unknown;
                 switch (data[1])
                 {
@@ -251,8 +257,6 @@ namespace CarCenter
                         break;
                     }
                 }
-
-
             }
 
         }

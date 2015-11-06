@@ -12,7 +12,7 @@ namespace CarCenter
 
         public string Name { get; private set; }
         public Bankaccount Bankaccount { get; private set; }
-        public int AuthenticationCode { get; private set; }
+        public string PinCode { get; private set; }
 
         /// <summary>
         /// Create a owner.
@@ -20,11 +20,11 @@ namespace CarCenter
         /// <param name="name">Name of the owner.</param>
         /// <param name="bankaccount">Bankaccountnumber.</param>
         /// <param name="authenticationCode">authenticationCode of the owner.</param>
-        public  Owner (string name, Bankaccount bankaccount, int authenticationCode)
+        public  Owner (string name, Bankaccount bankaccount, string pinCode)
         {
             Name               = name;
             Bankaccount        = bankaccount;
-            AuthenticationCode = authenticationCode;
+            PinCode = pinCode;
 
             OwnedCars = new List<Car>();
         }

@@ -33,7 +33,7 @@ namespace CarCenter
             cbSendTo.SelectedIndex = 0;
             cbRetrieveFrom.SelectedIndex = 1;
 
-            foreach (Car caritem in fuelstation.Cars)
+            foreach (Car caritem in fuelstation.AllCars)
             {
                 listBoxCars.Items.Add(caritem);
             }
@@ -59,7 +59,7 @@ namespace CarCenter
         {
             MessageBox.Show(fuelstation.GetFuelType("CX-TV-46").ToString());
             listBoxCars.Items.Clear();
-            foreach (Car caritem in fuelstation.Cars)
+            foreach (Car caritem in fuelstation.AllCars)
             {
                 listBoxCars.Items.Add(caritem);
             }
@@ -69,7 +69,7 @@ namespace CarCenter
         {
             MessageBox.Show(fuelstation.GetFuelType("BZ-XW-62").ToString());
             listBoxCars.Items.Clear();
-            foreach (Car caritem in fuelstation.Cars)
+            foreach (Car caritem in fuelstation.AllCars)
             {
                 listBoxCars.Items.Add(caritem);
             }
