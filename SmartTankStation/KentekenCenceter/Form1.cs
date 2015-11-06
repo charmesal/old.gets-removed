@@ -207,10 +207,10 @@ namespace CarCenter
             if (pincodeBool && lblPin.Text == "****")
             {
                 lblPin.Text = "";
-                if(CheckPinCode(pincodestring))
-                {
+                //if(CheckPinCode(pincodestring))
+                //{
                  //   fuelstation.pay();
-                }
+                //}
             }
         }     
  
@@ -222,18 +222,18 @@ namespace CarCenter
         }
 
 
-        private bool CheckPinCode(string pincode)
-        {
-            string pin = pincode;
-                foreach (Bankaccount bankaccount in fuelstation.Bankaccounts)
-                {
-                    if (pin == bankaccount.Pincode)
-                    {
-                        return true;
-                    }
-                }
-            return false;
-        }
+        //private bool CheckPinCode(string pincode)
+        //{
+        //    string pin = pincode;
+        //        foreach (Bankaccount bankaccount in fuelstation.Bankaccounts)
+        //        {
+        //            if (pin == bankaccount.Pincode)
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //    return false;
+        //}
 
         private void btnDummyTest_Click(object sender, EventArgs e)
         {

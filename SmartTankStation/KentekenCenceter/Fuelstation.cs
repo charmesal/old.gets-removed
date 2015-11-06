@@ -10,7 +10,6 @@ namespace CarCenter
 {
     class Fuelstation
     {
-        public List<Bankaccount> Bankaccounts { get; private set; }
         public List<Owner> Owners { get; private set; }
         public List<Car> AllCars { get; private set; }
 
@@ -23,7 +22,6 @@ namespace CarCenter
         public Fuelstation()
         {
             Owners = new List<Owner>();
-            Bankaccounts = new List<Bankaccount>();
             AllCars = new List<Car>();
 
 
