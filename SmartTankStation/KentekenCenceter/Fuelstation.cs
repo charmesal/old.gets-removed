@@ -62,7 +62,6 @@ namespace CarCenter
                     return caritem.Fueltype;
                 }
             }
-
             Car car = pc.AskNewCarFuelType(licenseplate);
             AllCars.Add(car);
             return car.Fueltype;
@@ -110,6 +109,7 @@ namespace CarCenter
                     price = amountOfFuel * LPGPRice;
                     break;
             }
+            price = price / 100;
             return price;
         }
 
