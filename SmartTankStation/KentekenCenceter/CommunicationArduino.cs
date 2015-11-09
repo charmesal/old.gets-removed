@@ -28,7 +28,7 @@ namespace CarCenter
 
             mySerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
 
-            //mySerialPort.Open();
+            mySerialPort.Open();
         }
 
         public void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
