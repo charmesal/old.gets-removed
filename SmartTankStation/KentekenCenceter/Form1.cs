@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace CarCenter
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form 
     {
         Fuelstation fuelstation;
         CommunicationArduino arduino1;
         CommunicationArduino arduino2;
 
         CommunicationPCs pcconnection;
-        string pincodestring;
+        string pincode;
         bool pincodeBool = false;
 
         public Form1()
@@ -95,7 +95,7 @@ namespace CarCenter
         {
             if (pincodeBool && lblPin.Text != "****")
             {
-                pincodestring += "1";
+                pincode += "1";
                 lblPin.Text = lblPin.Text + "*";
             }
         }
@@ -104,7 +104,7 @@ namespace CarCenter
         {
             if (pincodeBool && lblPin.Text != "****")
             {
-                pincodestring += "2";
+                pincode += "2";
                 lblPin.Text = lblPin.Text + "*";
             }
         }
@@ -113,7 +113,7 @@ namespace CarCenter
         {
             if (pincodeBool && lblPin.Text != "****")
             {
-                pincodestring += "3";
+                pincode += "3";
                 lblPin.Text = lblPin.Text + "*";
             }
         }
@@ -122,7 +122,7 @@ namespace CarCenter
         {
             if (pincodeBool && lblPin.Text != "****")
             {
-                pincodestring += "4";
+                pincode += "4";
                 lblPin.Text = lblPin.Text + "*";
             }
         }
@@ -131,7 +131,7 @@ namespace CarCenter
         {
             if (pincodeBool && lblPin.Text != "****")
             {
-                pincodestring += "5";
+                pincode += "5";
                 lblPin.Text = lblPin.Text + "*";
             }
         }
@@ -140,7 +140,7 @@ namespace CarCenter
         {
             if (pincodeBool && lblPin.Text != "****")
             {
-                pincodestring += "6";
+                pincode += "6";
                 lblPin.Text = lblPin.Text + "*";
             }
         }
@@ -149,7 +149,7 @@ namespace CarCenter
         {
             if (pincodeBool && lblPin.Text != "****")
             {
-                pincodestring += "7";
+                pincode += "7";
                 lblPin.Text = lblPin.Text + "*";
             }
         }
@@ -158,7 +158,7 @@ namespace CarCenter
         {
             if (pincodeBool && lblPin.Text != "****")
             {
-                pincodestring += "8";
+                pincode += "8";
                 lblPin.Text = lblPin.Text + "*";
             }
         }
@@ -167,7 +167,7 @@ namespace CarCenter
         {
             if (pincodeBool && lblPin.Text != "****")
             {
-                pincodestring += "9";
+                pincode += "9";
                 lblPin.Text = lblPin.Text + "*";
             }
         }
@@ -176,7 +176,7 @@ namespace CarCenter
         {
             if (pincodeBool && lblPin.Text != "****")
             {
-                pincodestring += "0";
+                pincode += "0";
                 lblPin.Text = lblPin.Text + "*";
             }
         }
@@ -185,7 +185,7 @@ namespace CarCenter
         {
             if (pincodeBool)
             {
-                pincodestring = "";
+                pincode = "";
                 lblPin.Text = "";
             }
         }
@@ -195,19 +195,13 @@ namespace CarCenter
             if (pincodeBool && lblPin.Text == "****")
             {
                 lblPin.Text = "";
-                if(CheckPinCode(pincodestring))
+                if(CheckPinCode(pincode))
                 {
                  //   fuelstation.pay();
                 }
             }
         }     
- 
 
-        public int getPinFromForm()
-        {
-            int pin = 0;
-            return pin;
-        }
 
 
         private bool CheckPinCode(string pincode)

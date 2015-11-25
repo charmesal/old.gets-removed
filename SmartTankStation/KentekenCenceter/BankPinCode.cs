@@ -121,7 +121,7 @@ namespace CarCenter
             ClearPinCode();
         }
 
-        public void ClearPinCode()
+        private void ClearPinCode()
         {
             PinCode = "";
             lblPin.Text = "";
