@@ -16,7 +16,7 @@ namespace CarCenter
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Tankstation());
+            Application.Run(new Form1());
         }
     }
 }

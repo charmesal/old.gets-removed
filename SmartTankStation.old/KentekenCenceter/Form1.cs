@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace CarCenter
 {
@@ -63,8 +64,6 @@ namespace CarCenter
             }
         }
 
-<<<<<<< HEAD
-=======
         public void ToggleVisibility()
         {
                 btnPin0.Visible = !btnPin0.Visible;
@@ -218,7 +217,6 @@ namespace CarCenter
                 }
             return false;
         }
->>>>>>> 87d6a5307bbf7c30c19d61c885ac2fc8e5c3d4f0
 
         private void btnDummyTest_Click(object sender, EventArgs e)
         {

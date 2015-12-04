@@ -20,6 +20,7 @@ namespace CarCenter
         private int retrieveFrom;
 
 
+
         public CommunicationPCs(Fuelstation fuelstation)
         {
             this.fuelstation = fuelstation;
@@ -28,7 +29,7 @@ namespace CarCenter
             retrieveFrom = 2;
 
             string serveradress = ShowIpDialog(); 
-           
+            
 
             myTrafficMessageProxy = new CarCenter.TrafficMessageService.TrafficMessageClient();
 
@@ -47,7 +48,7 @@ namespace CarCenter
             
         }
 
-        public TypeOfFuel AskNewCarFuelType(string licenseplate)
+        public Car AskNewCarFuelType(string licenseplate)
         {
             string messageRetrieve = "";
             myTrafficMessageProxy.SendMessage(licenseplate, sendTo);
@@ -56,23 +57,32 @@ namespace CarCenter
                 messageRetrieve = myTrafficMessageProxy.RetrieveMessage(retrieveFrom);
             }
                 
-                string line = messageRetrieve;
-        
+            string line = messageRetrieve;
+                string[] data = line.Split(',');
                 TypeOfFuel fueltype = TypeOfFuel.Unknown;
-                if (messageRetrieve == "$Petrol")
+                if (data[2] == "Petrol")
                 {
                     fueltype = TypeOfFuel.Petrol;
                 }
-                else if (messageRetrieve == "$Diesel")
+                else if (data[2] == "Diesel")
                 {
                     fueltype = TypeOfFuel.Diesel;
                 }
-                else if (messageRetrieve == "$LPG")
+                else if (data[2] == "LPG")
                 {
                     fueltype = TypeOfFuel.LPG;
                 }
 
-                return fueltype;                         
+                foreach (Owner owner in fuelstation.Owners)
+                {
+                    if (owner.Name == data[5])
+                    {
+                        Car car = new Car(data[1], fueltype, data[3], Convert.ToDouble(data[4]), owner);
+                        return car;
+                    }
+                }
+                Car carwithnoowner = new Car(data[1], fueltype, data[3], Convert.ToDouble(data[4]));
+                return carwithnoowner;                          
         }
 
         public string ShowIpDialog()

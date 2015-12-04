@@ -28,16 +28,14 @@ namespace CarCenter
 
             mySerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
 
-
-            // mySerialPort.Open();
-
+            mySerialPort.Open();
         }
+
         public void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
-           SerialPort sp = (SerialPort)sender;
-           string indata = sp.ReadLine();
-           string[] splitstring = indata.Split('-');
-           if (indata.Length == 9 && splitstring.Length == 3)
+            SerialPort sp = (SerialPort)sender;
+            string indata = sp.ReadLine();
+           if (indata.Length == 9 && indata.Substring(2, 1) == "-" && indata.Substring(5, 1) == "-")
            {
                indata = indata.Substring(0, 8);
               SendMessage(string.Format("%{0}#",fuelstation.GetFuelType(indata).ToString()));
@@ -50,25 +48,26 @@ namespace CarCenter
 
 
                         //%pay:AA-00-AA,amountOfFuel:500#
-           if (indata.StartsWith("%pay"))
+            if (indata.StartsWith("%pay"))
 
-           {
-               string[] data = indata.Split(',');
-               string[] kentekenData = data[0].Split(':');
-               string kentenen = kentekenData[1];
-               string[] amountOfFuel = data[1].Split(':');
-               string fuelding = amountOfFuel[1];
-               fuelding = fuelding.Remove(fuelding.Length - 2);
-               Console.WriteLine(fuelding);
-               decimal fuel = 0m;
-               decimal.TryParse(fuelding, out fuel);
-               string mesage = "%Paid:" + kentenen + "#";
-               Console.WriteLine(mesage);
-               fuelstation.Pay(kentenen, fuel);
-               fuelstation.sendSerialMsg(1, mesage);
-               fuelstation.sendSerialMsg(2, mesage);
+            {
+                string[] data = indata.Split(',');
+                string[] kentekenData = data[0].Split(':');
+                string kentenen = kentekenData[1];
+                string[] amountOfFuel = data[1].Split(':');
+                string fuelding = amountOfFuel[1];
+                fuelding = fuelding.Remove(fuelding.Length - 2);
+                Console.WriteLine(fuelding);
+                decimal fuel = 0m;
+                decimal.TryParse(fuelding, out fuel);
+                string mesage = "%Paid:" + kentenen + "#";
+                Console.WriteLine(mesage);
+                fuelstation.Pay(kentenen, fuel);
+                fuelstation.sendSerialMsg(1, mesage);
+                fuelstation.sendSerialMsg(2, mesage);
 
-           }
+
+            }
         }
 
         public void CloseConnection()

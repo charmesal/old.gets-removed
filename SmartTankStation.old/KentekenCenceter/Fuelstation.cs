@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
-using System.Net;
 
 namespace CarCenter
 {
@@ -63,9 +62,9 @@ namespace CarCenter
                     return caritem.Fueltype;
                 }
             }
-
-            //moet nog de pc opslaan 
-            return pc.AskNewCarFuelType(licenseplate);
+            Car car = pc.AskNewCarFuelType(licenseplate);
+            AllCars.Add(car);
+            return car.Fueltype;
         }
 
         public Owner getOwner(string licensePlate)
@@ -93,10 +92,9 @@ namespace CarCenter
 
         public decimal CalculatePrice(string licencePlate, decimal amountOfFuel)
         {
-            decimal[] fuelPrices = GetFuelPrice();
-            decimal PetrolPrice = fuelPrices[0];
-            decimal DieselPrice = fuelPrices[2];
-            decimal LPGPRice    = fuelPrices[3];
+            decimal PetrolPrice = 1.60m;
+            decimal DieselPrice = 1.28m;
+            decimal LPGPRice = 0.77m;
             decimal price = 0;
             TypeOfFuel fuelType = GetFuelType(licencePlate);
             switch (fuelType)
@@ -115,40 +113,6 @@ namespace CarCenter
             return price;
         }
 
-        public decimal[] GetFuelPrice()
-        {
-            string htmlcontent = ParseUrl("http://autotraveler.ru/en/netherlands/trend-price-fuel-netherlands.html#.Vlha93YveM8");
-            decimal[] resultarray;
-            if (htmlcontent == "not found")
-            {
-                //If the site doens't load, this will be returned
-                resultarray = new decimal[] { 1.60m, 1.65m, 1.25m, 0.75m }; 
-                return resultarray;
-            }
-
-            int htmlindex1 = htmlcontent.IndexOf("diffBenzPrice");
-            int htmlindex2 = htmlcontent.IndexOf("boxFuel rekPriceFuel");
-
-            string htmlsubstring = htmlcontent.Substring(htmlindex1, htmlindex2 - htmlindex1);
-            string[] htmlsplit = htmlsubstring.Split('<');
-
-            decimal petrolPrice = Convert.ToDecimal(htmlsplit[2].Substring(9, 5).Replace('.', ','));
-            decimal petrolPrice98 = Convert.ToDecimal(htmlsplit[9].Substring(9, 5).Replace('.', ','));
-            decimal dieselPrice = Convert.ToDecimal(htmlsplit[16].Substring(9, 5).Replace('.', ','));
-            decimal lpgPrice = Convert.ToDecimal(htmlsplit[23].Substring(9, 5).Replace('.', ','));
-
-            resultarray = new decimal[] { petrolPrice, petrolPrice98, dieselPrice, lpgPrice };
-
-            return resultarray;
-        }
-
-        public string ParseUrl(string url)
-        {
-            WebClient wc = new WebClient();
-
-            return wc.DownloadString(url);
-        }
-
         public void Pay(string licencePlate, decimal amountOfFuel)
         {
             decimal PayAmount = CalculatePrice(licencePlate, amountOfFuel);
@@ -156,6 +120,7 @@ namespace CarCenter
             string AccountNumber = owner.Bankaccount.AccountNumber;
             if (owner != null)
             {
+
                 string pinCode = getPinCodeFromUser(owner, PayAmount);
                 if (checkPin(pinCode, owner))
                 {

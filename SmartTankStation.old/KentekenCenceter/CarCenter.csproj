@@ -46,12 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="accountDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="accountDialog.Designer.cs">
-      <DependentUpon>accountDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Bankaccount.cs" />
     <Compile Include="BankPinCode.cs">
       <SubType>Form</SubType>
@@ -62,11 +56,11 @@
     <Compile Include="Car.cs" />
     <Compile Include="CommunicationArduino.cs" />
     <Compile Include="CommunicationPCs.cs" />
-    <Compile Include="Tankstation.cs">
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tankstation.Designer.cs">
-      <DependentUpon>Tankstation.cs</DependentUpon>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Fuelstation.cs" />
     <Compile Include="IpDialog.cs">
@@ -84,14 +78,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="TypeOfFuel.cs" />
-    <EmbeddedResource Include="accountDialog.resx">
-      <DependentUpon>accountDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="BankPinCode.resx">
       <DependentUpon>BankPinCode.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tankstation.resx">
-      <DependentUpon>Tankstation.cs</DependentUpon>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IpDialog.resx">
       <DependentUpon>IpDialog.cs</DependentUpon>
