@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2ed5cb08-aa8e-4637-8704-54faf212bf6e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://145.93.80.29/MEX" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MessageService.wsdl" MetadataType="Wsdl" ID="8ada787e-724f-497e-9c9c-cc4a30268280" SourceId="1" SourceUrl="http://145.93.80.29/MEX" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="ce2fcc4a-860a-4971-8f92-aaf6bb1c590e" SourceId="1" SourceUrl="http://145.93.80.29/MEX" />
+    <MetadataFile FileName="MessageService.xsd" MetadataType="Schema" ID="e4f35ee1-2a2e-441a-ac0a-86c3f1d916a2" SourceId="1" SourceUrl="http://145.93.80.29/MEX" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="855274a9-2804-4950-b378-c38bd36f1c41" SourceId="1" SourceUrl="http://145.93.80.29/MEX" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
